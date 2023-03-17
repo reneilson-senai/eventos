@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.senai.eventos.domain.pessoa.Pessoa;
 import com.senai.eventos.domain.pessoa.PessoaCreateDTO;
 import com.senai.eventos.domain.pessoa.PessoaReadDTO;
-import com.senai.eventos.repositories.PessoaRepository;
+import com.senai.eventos.domain.pessoa.PessoaRepository;
 
 @Service
 public class PessoaService  {

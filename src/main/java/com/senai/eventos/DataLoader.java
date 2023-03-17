@@ -2,15 +2,17 @@ package com.senai.eventos;
 
 import com.github.javafaker.Faker;
 import com.senai.eventos.domain.empresa.Empresa;
+import com.senai.eventos.domain.empresa.EmpresaRepository;
 import com.senai.eventos.domain.endereco.Endereco;
 import com.senai.eventos.domain.evento.Evento;
+import com.senai.eventos.domain.evento.EventoRepository;
+import com.senai.eventos.domain.participacao.Participacao;
+import com.senai.eventos.domain.participacao.ParticipacaoRepository;
 import com.senai.eventos.domain.pessoa.Pessoa;
+import com.senai.eventos.domain.pessoa.PessoaRepository;
 import com.senai.eventos.domain.publicacao.Publicacao;
+import com.senai.eventos.domain.publicacao.PublicacaoRepository;
 import com.senai.eventos.domain.usuario.Usuario;
-import com.senai.eventos.repositories.EmpresaRepository;
-import com.senai.eventos.repositories.EventoRepository;
-import com.senai.eventos.repositories.PessoaRepository;
-import com.senai.eventos.repositories.PublicacaoRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -43,6 +45,9 @@ public class DataLoader implements ApplicationRunner {
   @Autowired
   private PublicacaoRepository publicacaoRepository;
 
+  @Autowired
+  private ParticipacaoRepository participacaoRepository;
+
   @Transactional
   public void run(ApplicationArguments args) {
     List<Pessoa> pessoas = new ArrayList<>();
@@ -56,9 +61,8 @@ public class DataLoader implements ApplicationRunner {
     }
     for(Evento ev: eventos){
       for(Pessoa ps: pessoas){
-        ev.addParticipante(ps);
+        participacaoRepository.save(new Participacao(ev, ps));
       }
-      eventoRepository.save(ev);
     }
 
   }

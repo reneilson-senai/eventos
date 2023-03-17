@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 
 import com.senai.eventos.domain.evento.Evento;
 import com.senai.eventos.domain.evento.EventoDTO;
+import com.senai.eventos.domain.evento.EventoRepository;
 import com.senai.eventos.domain.pessoa.PessoaReadDTO;
-import com.senai.eventos.repositories.EventoRepository;
-import com.senai.eventos.repositories.PessoaRepository;
-import com.senai.eventos.repositories.PublicacaoRepository;
-import com.senai.eventos.repositories.UsuarioRepository;
+import com.senai.eventos.domain.pessoa.PessoaRepository;
+import com.senai.eventos.domain.publicacao.PublicacaoRepository;
+import com.senai.eventos.domain.usuario.UsuarioRepository;
 
 @Service
 public class EventoService {
@@ -72,6 +72,6 @@ public class EventoService {
     }
 
     public Page<?> listParticipantes(Long id, Pageable page) {
-        return psRepository.findByEventos_Id(page, id).map(PessoaReadDTO::new);
+        return psRepository.findByParticipacao_Evento_Id(page, id).map(PessoaReadDTO::new);
     }
 }

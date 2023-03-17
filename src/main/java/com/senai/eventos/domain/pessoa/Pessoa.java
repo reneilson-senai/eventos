@@ -7,11 +7,13 @@ import java.util.List;
 import com.senai.eventos.domain.empresa.Empresa;
 import com.senai.eventos.domain.endereco.Endereco;
 import com.senai.eventos.domain.evento.Evento;
+import com.senai.eventos.domain.participacao.Participacao;
 import com.senai.eventos.domain.usuario.Usuario;
 
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,8 +37,8 @@ public class Pessoa extends Usuario{
     @ManyToMany(mappedBy = "seguidores")
     private List<Empresa> seguindo = new ArrayList<Empresa>();
 
-    @ManyToMany(mappedBy = "participantes")
-    private List<Evento> eventos = new ArrayList<Evento>();
+    @OneToMany(mappedBy = "pessoa")
+    private List<Participacao> participacao = new ArrayList<Participacao>();
 
     public Pessoa(PessoaCreateDTO dto){
         super(dto.nome(), dto.email(), dto.senha());

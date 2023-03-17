@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.senai.eventos.domain.endereco.Endereco;
+import com.senai.eventos.domain.participacao.Participacao;
 import com.senai.eventos.domain.pessoa.Pessoa;
 import com.senai.eventos.domain.publicacao.Publicacao;
 import com.senai.eventos.domain.usuario.Usuario;
@@ -42,8 +43,8 @@ public class Evento {
     private String foto;
     private Boolean visibilidade;    
     
-    @ManyToMany
-    private List<Pessoa> participantes = new ArrayList<Pessoa>();
+    @OneToMany(mappedBy = "evento")
+    private List<Participacao> participacao = new ArrayList<Participacao>();
 
     @OneToMany(mappedBy = "evento")
     private List<Publicacao> publicacoes = new ArrayList<Publicacao>();
@@ -58,10 +59,6 @@ public class Evento {
         this.foto = dto.foto();
         this.organizador = new Usuario();
         this.organizador.setId(dto.organizador_id());
-    }
-
-    public void addParticipante(Pessoa participante){
-        this.participantes.add(participante);
     }
 
     public void update(EventoDTO dto){

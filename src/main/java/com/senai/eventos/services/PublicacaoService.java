@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.senai.eventos.domain.publicacao.Publicacao;
 import com.senai.eventos.domain.publicacao.PublicacaoDTO;
-import com.senai.eventos.repositories.PublicacaoRepository;
+import com.senai.eventos.domain.publicacao.PublicacaoRepository;
 
 @Service
 public class PublicacaoService {

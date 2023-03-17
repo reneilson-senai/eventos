@@ -1,10 +1,8 @@
-package com.senai.eventos.repositories;
+package com.senai.eventos.domain.publicacao;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.senai.eventos.domain.publicacao.Publicacao;
 
 public interface PublicacaoRepository extends JpaRepository<Publicacao, Long> {
 

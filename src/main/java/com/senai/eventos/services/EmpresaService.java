@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.senai.eventos.domain.empresa.Empresa;
 import com.senai.eventos.domain.empresa.EmpresaCreateDTO;
 import com.senai.eventos.domain.empresa.EmpresaReadDTO;
-import com.senai.eventos.repositories.EmpresaRepository;
+import com.senai.eventos.domain.empresa.EmpresaRepository;
 
 @Service
 public class EmpresaService {

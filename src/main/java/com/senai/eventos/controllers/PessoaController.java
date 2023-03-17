@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.senai.eventos.domain.evento.EventoSimplesDTO;
 import com.senai.eventos.domain.pessoa.PessoaCreateDTO;
 import com.senai.eventos.domain.pessoa.PessoaReadDTO;
 import com.senai.eventos.services.PessoaService;

@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.senai.eventos.domain.evento.Evento;
+import com.senai.eventos.domain.file.FileInfo;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,6 +33,9 @@ public class Usuario {
     @Column(unique = true)
     private String email;
     private String senha;
+    @Embedded
+    private FileInfo foto;
+
     @OneToMany(mappedBy = "organizador")
     private List<Evento> eventosOrganizando = new ArrayList<Evento>();
 
