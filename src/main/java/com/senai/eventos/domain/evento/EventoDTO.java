@@ -26,8 +26,6 @@ public record EventoDTO(
 
     String descricao,
 
-    String foto,
-
     Boolean visibilidade
     ) {
         public EventoDTO(Evento evento){
@@ -39,7 +37,6 @@ public record EventoDTO(
                 new EnderecoDTO(evento.getLocal()),
                 evento.getOrganizador().getId(),
                 evento.getDescricao(),
-                evento.getFoto(),
                 evento.getVisibilidade()    
             );
         }

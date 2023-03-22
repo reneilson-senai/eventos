@@ -50,14 +50,18 @@ public class DataLoader implements ApplicationRunner {
 
   @Transactional
   public void run(ApplicationArguments args) {
+    if (pessoaRepository.count() > 0){
+      return;
+    }
     List<Pessoa> pessoas = new ArrayList<>();
     List<Empresa> empresas = new ArrayList<>();
     List<Evento> eventos = new ArrayList<>();
     for (int i = 0; i < 25; i++) {
       pessoas.add(pessoaRepository.save(this.createPessoa()));
       empresas.add(empresaRepository.save(this.createEmpresa()));
-      eventos.add(eventoRepository.save(this.createEvento(i % 2 == 0 ? pessoas.get(i) : empresas.get(i))));
-      publicacaoRepository.save(this.createPublicacao(i % 2 == 0 ? empresas.get(i) : pessoas.get(i)));
+      Evento ev = eventoRepository.save(this.createEvento(i % 2 == 0 ? pessoas.get(i) : empresas.get(i)));
+      eventos.add(ev);
+      publicacaoRepository.save(this.createPublicacao(i % 2 == 0 ? empresas.get(i) : pessoas.get(i), ev));
     }
     for(Evento ev: eventos){
       for(Pessoa ps: pessoas){
@@ -68,10 +72,11 @@ public class DataLoader implements ApplicationRunner {
   }
 
 
-  private Publicacao createPublicacao(Usuario us){
+  private Publicacao createPublicacao(Usuario us, Evento ev){
     Publicacao pub = new Publicacao();
     pub.setConteudo(faker.lorem().paragraph());
     pub.setPublicador(us);
+    pub.setEvento(ev);
     return pub;
   }
 
@@ -79,7 +84,7 @@ public class DataLoader implements ApplicationRunner {
     Pessoa pessoa = new Pessoa();
     pessoa.setEmail(faker.name().username().toLowerCase() + "@mail.com");
     pessoa.setNome(faker.name().firstName());
-    pessoa.setSenha(faker.crypto().sha256());
+    pessoa.setSenha("12345678");
     var date = faker.date().past(5 * 365, TimeUnit.DAYS);
     pessoa.setDataNascimento(
       this.convertDate(date)

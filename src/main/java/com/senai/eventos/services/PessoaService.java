@@ -3,6 +3,7 @@ package com.senai.eventos.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.senai.eventos.domain.pessoa.Pessoa;
@@ -14,6 +15,9 @@ import com.senai.eventos.domain.pessoa.PessoaRepository;
 public class PessoaService  {
     @Autowired
     private PessoaRepository repository;
+
+    @Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     private Pessoa getById(Long id){
         if(repository.existsById(id)){
@@ -32,7 +36,10 @@ public class PessoaService  {
     }
 
     public PessoaReadDTO save(PessoaCreateDTO data){
-        Pessoa pessoa = this.repository.save(new Pessoa(data));
+        String encodedPassword = bCryptPasswordEncoder.encode(data.senha());
+        Pessoa register = new Pessoa(data);
+        register.setSenha(encodedPassword);
+        Pessoa pessoa = this.repository.save(register);
         return new PessoaReadDTO(pessoa);
     }
 

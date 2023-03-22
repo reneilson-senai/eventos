@@ -9,17 +9,14 @@ public record PublicacaoDTO(
 
   @NotEmpty String conteudo,
 
-  @NotEmpty Long evento_id,
-
-  String midia
+  @NotEmpty Long evento_id
 ) {
   public PublicacaoDTO(Publicacao publicacao) {
     this(
       publicacao.getId(),
       publicacao.getPublicador().getId(),
       publicacao.getConteudo(),
-      publicacao.getEvento().getId(),
-      publicacao.getMidia()
+      publicacao.getEvento() != null ? publicacao.getEvento().getId() : null
     );
   }
 }

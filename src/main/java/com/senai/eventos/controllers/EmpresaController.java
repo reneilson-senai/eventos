@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +20,10 @@ import com.senai.eventos.domain.empresa.EmpresaReadDTO;
 import com.senai.eventos.services.EmpresaService;
 import com.senai.eventos.services.UsuarioService;
 
+import jakarta.validation.Valid;
+
 @RestController
+@Validated
 @RequestMapping("empresas")
 public class EmpresaController {
     @Autowired
@@ -40,7 +44,7 @@ public class EmpresaController {
     }
 
     @PostMapping
-    public ResponseEntity<EmpresaReadDTO> create(@RequestBody EmpresaCreateDTO empresa){
+    public ResponseEntity<EmpresaReadDTO> create(@RequestBody @Valid EmpresaCreateDTO empresa){
         var created = service.save(empresa);
         return new ResponseEntity<EmpresaReadDTO>(created, HttpStatus.CREATED);
     }

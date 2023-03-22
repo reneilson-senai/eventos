@@ -9,7 +9,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.senai.eventos.domain.evento.EventoDTO;
 import com.senai.eventos.domain.evento.EventoRepository;
-import com.senai.eventos.domain.evento.EventoSimplesDTO;
 import com.senai.eventos.domain.file.FileInfo;
 import com.senai.eventos.domain.usuario.UsuarioDTO;
 import com.senai.eventos.domain.usuario.UsuarioRepository;
@@ -49,9 +48,8 @@ public class UsuarioService {
     public void upload(Long id, MultipartFile file) {
         if(repository.existsById(id)){
             var filename = storageService.save(file);
-            var foto = new FileInfo(filename);
             var usuario = repository.findById(id).get();
-            usuario.setFoto(foto);
+            usuario.setFilename(filename);
             repository.save(usuario);
         }
     }
@@ -59,11 +57,22 @@ public class UsuarioService {
     public Resource getFoto(Long id) {
         if(repository.existsById(id)){
             var usuario = repository.findById(id).get();
-            if(usuario.getFoto().getFilename() != null){
-                return storageService.load(usuario.getFoto().getFilename());
+            if(usuario.getFilename() != null){
+                return storageService.load(usuario.getFilename());
             }       
             return null;     
         }
         return null;
+    }
+
+    public void deleteFoto(Long id) {
+        if(repository.existsById(id)){
+            var usuario = repository.findById(id).get();
+            if(usuario.getFilename() != null){
+                storageService.delete(usuario.getFilename());
+                usuario.setFilename(null);
+                repository.save(usuario);
+            }           
+        }
     }
 }

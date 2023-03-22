@@ -84,6 +84,17 @@ public class FilesStorageServiceImp implements FilesStorageService {
   }
 
   @Override
+  public void delete(String filename) {
+    Path file = root.resolve(filename);
+    try {
+      FileSystemUtils.deleteRecursively(file);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+  
+
+  @Override
   public void deleteAll() {
     FileSystemUtils.deleteRecursively(root.toFile());
   }

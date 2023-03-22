@@ -24,11 +24,8 @@ public class EmpresaService {
     }
 
     public EmpresaReadDTO read(Long id){
-        if(repository.existsById(id)){
-            var empresa = repository.findById(id).get();
-            return new EmpresaReadDTO(empresa);
-        }
-        return null;
+        var empresa = repository.findById(id).get();
+        return new EmpresaReadDTO(empresa);
     }
 
     public EmpresaReadDTO save(EmpresaCreateDTO data){
