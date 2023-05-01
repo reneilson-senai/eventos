@@ -6,10 +6,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.senai.eventos.domain.pessoa.Pessoa;
-import com.senai.eventos.domain.pessoa.PessoaCreateDTO;
-import com.senai.eventos.domain.pessoa.PessoaReadDTO;
-import com.senai.eventos.domain.pessoa.PessoaRepository;
+import com.senai.eventos.models.Pessoa;
+import com.senai.eventos.repositories.PessoaRepository;
+import com.senai.eventos.serializers.PessoaCreateDTO;
+import com.senai.eventos.serializers.PessoaReadDTO;
 
 @Service
 public class PessoaService  {

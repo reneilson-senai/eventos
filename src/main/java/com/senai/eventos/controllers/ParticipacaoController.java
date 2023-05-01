@@ -1,9 +1,9 @@
 package com.senai.eventos.controllers;
 
-import com.senai.eventos.domain.evento.Evento;
-import com.senai.eventos.domain.participacao.Participacao;
-import com.senai.eventos.domain.participacao.ParticipacaoDTO;
-import com.senai.eventos.domain.pessoa.Pessoa;
+import com.senai.eventos.models.Evento;
+import com.senai.eventos.models.Participacao;
+import com.senai.eventos.models.Pessoa;
+import com.senai.eventos.serializers.ParticipacaoDTO;
 import com.senai.eventos.services.ParticipacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;

@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.senai.eventos.domain.publicacao.ComentarioDTO;
-import com.senai.eventos.domain.publicacao.PublicacaoDTO;
+import com.senai.eventos.serializers.ComentarioDTO;
+import com.senai.eventos.serializers.PublicacaoDTO;
 import com.senai.eventos.services.PublicacaoService;
 
 import jakarta.transaction.Transactional;

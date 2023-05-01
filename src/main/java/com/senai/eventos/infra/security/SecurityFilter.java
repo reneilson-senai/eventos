@@ -1,6 +1,6 @@
 package com.senai.eventos.infra.security;
 
-import com.senai.eventos.domain.usuario.UsuarioRepository;
+import com.senai.eventos.repositories.UsuarioRepository;
 import com.senai.eventos.services.TokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

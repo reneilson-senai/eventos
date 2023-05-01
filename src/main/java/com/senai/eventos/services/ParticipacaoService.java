@@ -6,10 +6,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.senai.eventos.domain.participacao.Participacao;
-import com.senai.eventos.domain.participacao.ParticipacaoDTO;
-import com.senai.eventos.domain.participacao.ParticipacaoKey;
-import com.senai.eventos.domain.participacao.ParticipacaoRepository;
+import com.senai.eventos.models.Participacao;
+import com.senai.eventos.models.ParticipacaoKey;
+import com.senai.eventos.repositories.ParticipacaoRepository;
+import com.senai.eventos.serializers.ParticipacaoDTO;
 
 @Service
 public class ParticipacaoService {

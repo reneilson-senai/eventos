@@ -1,8 +1,8 @@
 package com.senai.eventos.controllers;
 
-import com.senai.eventos.domain.seguranca.JWTRequestDTO;
-import com.senai.eventos.domain.seguranca.JWTResponseDTO;
-import com.senai.eventos.domain.usuario.Usuario;
+import com.senai.eventos.models.Usuario;
+import com.senai.eventos.serializers.JWTRequestDTO;
+import com.senai.eventos.serializers.JWTResponseDTO;
 import com.senai.eventos.services.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

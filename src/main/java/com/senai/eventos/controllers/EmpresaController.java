@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.senai.eventos.domain.empresa.EmpresaCreateDTO;
-import com.senai.eventos.domain.empresa.EmpresaReadDTO;
+import com.senai.eventos.serializers.EmpresaCreateDTO;
+import com.senai.eventos.serializers.EmpresaReadDTO;
 import com.senai.eventos.services.EmpresaService;
 import com.senai.eventos.services.UsuarioService;
 

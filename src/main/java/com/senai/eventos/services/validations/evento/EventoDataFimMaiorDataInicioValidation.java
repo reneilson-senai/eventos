@@ -1,7 +1,7 @@
 package com.senai.eventos.services.validations.evento;
 
-import com.senai.eventos.domain.evento.EventoDTO;
 import com.senai.eventos.infra.errors.ValidacaoException;
+import com.senai.eventos.serializers.EventoDTO;
 import com.senai.eventos.services.validations.Validation;
 import org.springframework.stereotype.Component;
 

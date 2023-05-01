@@ -7,11 +7,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.senai.eventos.domain.evento.EventoDTO;
-import com.senai.eventos.domain.evento.EventoRepository;
-import com.senai.eventos.domain.file.FileInfo;
-import com.senai.eventos.domain.usuario.UsuarioDTO;
-import com.senai.eventos.domain.usuario.UsuarioRepository;
+import com.senai.eventos.models.FileInfo;
+import com.senai.eventos.repositories.EventoRepository;
+import com.senai.eventos.repositories.UsuarioRepository;
+import com.senai.eventos.serializers.EventoDTO;
+import com.senai.eventos.serializers.UsuarioDTO;
 
 @Service
 public class UsuarioService {
@@ -48,8 +48,9 @@ public class UsuarioService {
     public void upload(Long id, MultipartFile file) {
         if(repository.existsById(id)){
             var filename = storageService.save(file);
+            var foto = new FileInfo(filename);
             var usuario = repository.findById(id).get();
-            usuario.setFilename(filename);
+            usuario.setFoto(foto);
             repository.save(usuario);
         }
     }
@@ -57,8 +58,8 @@ public class UsuarioService {
     public Resource getFoto(Long id) {
         if(repository.existsById(id)){
             var usuario = repository.findById(id).get();
-            if(usuario.getFilename() != null){
-                return storageService.load(usuario.getFilename());
+            if(usuario.getFoto().getFilename() != null){
+                return storageService.load(usuario.getFoto().getFilename());
             }       
             return null;     
         }
@@ -68,9 +69,9 @@ public class UsuarioService {
     public void deleteFoto(Long id) {
         if(repository.existsById(id)){
             var usuario = repository.findById(id).get();
-            if(usuario.getFilename() != null){
-                storageService.delete(usuario.getFilename());
-                usuario.setFilename(null);
+            if(usuario.getFoto() != null){
+                storageService.delete(usuario.getFoto().getFilename());
+                usuario.setFoto(null);
                 repository.save(usuario);
             }           
         }

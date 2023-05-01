@@ -1,5 +1,7 @@
 package com.senai.eventos.infra.security;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -40,26 +42,35 @@ public class SecurityConfigurations {
   public SecurityFilterChain securityFilterChain(HttpSecurity http)
     throws Exception {
     return http
-      .csrf()
-      .disable()
-      .authorizeHttpRequests()
-      .requestMatchers(HttpMethod.POST, "/login")
-      .permitAll()
-      .requestMatchers(HttpMethod.POST, "/pessoas")
-      .permitAll()
-      .anyRequest()
-      .authenticated()
-      .and()
+      .csrf(s -> s.disable())
+      .sessionManagement(management ->
+        management.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+      )
+      .authorizeHttpRequests(requests ->
+        requests
+          .requestMatchers(HttpMethod.POST, "/login", "/pessoas")
+          .permitAll()
+          .requestMatchers(
+            "/v3/api-docs/*",
+            "/v3/*",
+            "/swagger-ui.html",
+            "/swagger-ui/*"
+          )
+          .permitAll()
+          .requestMatchers(HttpMethod.DELETE, "/empresas")
+          .hasRole("ADMIN")
+          .requestMatchers(HttpMethod.DELETE)
+          .hasRole("ADMINDB")
+          .anyRequest()
+          .authenticated()
+      )
       .addFilterBefore(
         securityFilter,
         UsernamePasswordAuthenticationFilter.class
       )
-      .exceptionHandling()
-      .authenticationEntryPoint(autenticacaoEntryPoint)
-      .and()
-      .sessionManagement()
-      .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-      .and()
+      .exceptionHandling(handling ->
+        handling.authenticationEntryPoint(autenticacaoEntryPoint)
+      )
       .build();
   }
 }

@@ -5,10 +5,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.senai.eventos.domain.empresa.Empresa;
-import com.senai.eventos.domain.empresa.EmpresaCreateDTO;
-import com.senai.eventos.domain.empresa.EmpresaReadDTO;
-import com.senai.eventos.domain.empresa.EmpresaRepository;
+import com.senai.eventos.models.Empresa;
+import com.senai.eventos.repositories.EmpresaRepository;
+import com.senai.eventos.serializers.EmpresaCreateDTO;
+import com.senai.eventos.serializers.EmpresaReadDTO;
 
 @Service
 public class EmpresaService {

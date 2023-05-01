@@ -1,18 +1,18 @@
 package com.senai.eventos;
 
 import com.github.javafaker.Faker;
-import com.senai.eventos.domain.empresa.Empresa;
-import com.senai.eventos.domain.empresa.EmpresaRepository;
-import com.senai.eventos.domain.endereco.Endereco;
-import com.senai.eventos.domain.evento.Evento;
-import com.senai.eventos.domain.evento.EventoRepository;
-import com.senai.eventos.domain.participacao.Participacao;
-import com.senai.eventos.domain.participacao.ParticipacaoRepository;
-import com.senai.eventos.domain.pessoa.Pessoa;
-import com.senai.eventos.domain.pessoa.PessoaRepository;
-import com.senai.eventos.domain.publicacao.Publicacao;
-import com.senai.eventos.domain.publicacao.PublicacaoRepository;
-import com.senai.eventos.domain.usuario.Usuario;
+import com.senai.eventos.models.Empresa;
+import com.senai.eventos.models.Endereco;
+import com.senai.eventos.models.Evento;
+import com.senai.eventos.models.Participacao;
+import com.senai.eventos.models.Pessoa;
+import com.senai.eventos.models.Publicacao;
+import com.senai.eventos.models.Usuario;
+import com.senai.eventos.repositories.EmpresaRepository;
+import com.senai.eventos.repositories.EventoRepository;
+import com.senai.eventos.repositories.ParticipacaoRepository;
+import com.senai.eventos.repositories.PessoaRepository;
+import com.senai.eventos.repositories.PublicacaoRepository;
 
 import jakarta.transaction.Transactional;
 
