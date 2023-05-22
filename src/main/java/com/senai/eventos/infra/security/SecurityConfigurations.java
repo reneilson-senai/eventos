@@ -48,7 +48,7 @@ public class SecurityConfigurations {
       )
       .authorizeHttpRequests(requests ->
         requests
-          .requestMatchers(HttpMethod.POST, "/login", "/pessoas")
+          .requestMatchers(HttpMethod.POST, "/login", "/pessoas", "/refresh")
           .permitAll()
           .requestMatchers(
             "/v3/api-docs/*",
@@ -59,8 +59,6 @@ public class SecurityConfigurations {
           .permitAll()
           .requestMatchers(HttpMethod.DELETE, "/empresas")
           .hasRole("ADMIN")
-          .requestMatchers(HttpMethod.DELETE)
-          .hasRole("ADMINDB")
           .anyRequest()
           .authenticated()
       )

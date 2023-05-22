@@ -1,5 +1,6 @@
 package com.senai.eventos.infra.security;
 
+import com.senai.eventos.repositories.TokenRepository;
 import com.senai.eventos.repositories.UsuarioRepository;
 import com.senai.eventos.services.TokenService;
 import jakarta.servlet.FilterChain;
@@ -22,6 +23,9 @@ public class SecurityFilter extends OncePerRequestFilter {
   @Autowired
   private UsuarioRepository repository;
 
+  @Autowired
+  private TokenRepository tokenRepository;
+
   @Override
   protected void doFilterInternal(
     HttpServletRequest request,
@@ -32,6 +36,7 @@ public class SecurityFilter extends OncePerRequestFilter {
 
     if (tokenJWT != null) {
       var subject = tokenService.getSubject(tokenJWT);
+      tokenRepository.findByToken(tokenJWT).orElseThrow();
       var usuario = repository.findByEmail(subject);
 
       var authentication = new UsernamePasswordAuthenticationToken(
