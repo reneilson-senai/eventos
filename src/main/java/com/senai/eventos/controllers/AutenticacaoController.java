@@ -62,7 +62,6 @@ public class AutenticacaoController {
 
   private ResponseEntity<JWTResponseDTO> getToken(String requestRefreshToken, Usuario usuario) {
     String token = tokenService.gerarToken(usuario);
-    refreshTokenService.deleteByUserId(usuario.getId());
     Token refreshToken = refreshTokenService.createRefreshToken(usuario.getId(), token);
     return ResponseEntity.ok(new JWTResponseDTO(refreshToken));
   }

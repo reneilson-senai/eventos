@@ -30,7 +30,9 @@ public class RefreshTokenService {
 
   public Token createRefreshToken(Long userId, String token) {
     Token refreshToken = new Token();
-    refreshToken.setUsuario(userRepository.findById(userId).get());
+    Usuario usuario = userRepository.findById(userId).get();
+    this.deleteByUserId(userId);
+    refreshToken.setUsuario(usuario);
     refreshToken.setExpirationTime(
       Instant.now().plusSeconds(Long.parseLong(refreshTokenDurationS))
     );
@@ -53,8 +55,10 @@ public class RefreshTokenService {
 
   @Transactional
   public int deleteByUserId(Long userId) {
-    return refreshTokenRepository.deleteByUsuario(
-      userRepository.findById(userId).get()
-    );
+    try {
+      return refreshTokenRepository.deleteByUsuario(
+        userRepository.findById(userId).get()
+      );
+    } finally {}
   }
 }

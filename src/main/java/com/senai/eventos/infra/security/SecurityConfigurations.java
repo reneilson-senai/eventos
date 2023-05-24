@@ -1,7 +1,5 @@
 package com.senai.eventos.infra.security;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +12,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
@@ -36,6 +35,11 @@ public class SecurityConfigurations {
     AuthenticationConfiguration configuration
   ) throws Exception {
     return configuration.getAuthenticationManager();
+  }
+
+  @Bean
+  public AccessDeniedHandler getAccessDeniedHandler() {
+    return new ForbiddenHandler();
   }
 
   @Bean
@@ -66,9 +70,10 @@ public class SecurityConfigurations {
         securityFilter,
         UsernamePasswordAuthenticationFilter.class
       )
-      .exceptionHandling(handling ->
-        handling.authenticationEntryPoint(autenticacaoEntryPoint)
-      )
+      .exceptionHandling(handling -> {
+        handling.authenticationEntryPoint(autenticacaoEntryPoint);
+        handling.accessDeniedHandler(this.getAccessDeniedHandler());
+      })
       .build();
   }
 }
