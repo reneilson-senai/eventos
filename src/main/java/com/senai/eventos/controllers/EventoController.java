@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.senai.eventos.serializers.EventoDTO;
+import com.senai.eventos.services.EmailService;
 import com.senai.eventos.services.EventoService;
 
 import jakarta.transaction.Transactional;

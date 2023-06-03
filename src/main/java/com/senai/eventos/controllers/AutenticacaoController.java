@@ -7,7 +7,11 @@ import com.senai.eventos.serializers.JWTResponseDTO;
 import com.senai.eventos.serializers.TokenRefreshDTO;
 import com.senai.eventos.services.RefreshTokenService;
 import com.senai.eventos.services.TokenService;
+
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +22,10 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.slf4j.Logger;
 
 @RestController
+@Slf4j
 public class AutenticacaoController {
 
   @Autowired
@@ -31,10 +37,12 @@ public class AutenticacaoController {
   @Autowired
   private RefreshTokenService refreshTokenService;
 
+  @Transactional
   @PostMapping("/login")
   public ResponseEntity<JWTResponseDTO> login(
     @RequestBody @Valid JWTRequestDTO dados
   ) {
+    log.info(dados.toString());
     var authenticationToken = new UsernamePasswordAuthenticationToken(
       dados.email(),
       dados.senha()
@@ -43,6 +51,7 @@ public class AutenticacaoController {
     var usuario = (Usuario) authentication.getPrincipal();
     var token = tokenService.gerarToken(usuario);
     Token refreshToken = refreshTokenService.createRefreshToken(usuario.getId(), token);
+    log.info(refreshToken.toString());
     return new ResponseEntity<JWTResponseDTO>(
       new JWTResponseDTO(refreshToken),
       HttpStatus.CREATED
